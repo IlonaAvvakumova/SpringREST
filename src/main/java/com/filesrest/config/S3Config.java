@@ -14,16 +14,16 @@ import org.springframework.context.annotation.Configuration;
 public class S3Config {
 
 
-    @Value("${aws.access-key}")
-    private String accessKey;
+//    @Value("${aws.access-key}")
+//    private String accessKey;
+//
+//    @Value("${aws.secret-key}")
+//    private String secretKey;
 
-    @Value("${aws.secret-key}")
-    private String secretKey;
-
-    public S3Config(String accessKey, String secretKey) {
-        this.accessKey = accessKey;
-        this.secretKey = secretKey;
-    }
+//    public S3Config(String accessKey, String secretKey) {
+//        this.accessKey = accessKey;
+//        this.secretKey = secretKey;
+//    }
 
     @Bean
     public AmazonS3 s3client() {

@@ -25,7 +25,7 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1/files")
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 
 public class FileRestControllerV1 {
 
@@ -34,8 +34,13 @@ public class FileRestControllerV1 {
     private final UserService userService;
 
     private final S3Service s3Service;
+@Autowired
+    public FileRestControllerV1(FileService fileService, UserService userService, S3Service s3Service) {
 
-
+        this.userService = userService;
+        this.s3Service = s3Service;
+        this.fileService = fileService;
+    }
 //    @PostMapping("/uploadFile")
 //    @Transactional
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")

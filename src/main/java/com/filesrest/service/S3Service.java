@@ -14,7 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-@Slf4j
+
 @Service
 //@RequiredArgsConstructor
 public class S3Service {

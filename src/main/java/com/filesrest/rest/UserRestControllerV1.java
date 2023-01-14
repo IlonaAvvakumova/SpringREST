@@ -20,8 +20,6 @@ public class UserRestControllerV1 {
 
     private final UserService userService;
 
-
-
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') ")
     public ResponseEntity<?> getAll() throws JsonProcessingException {
