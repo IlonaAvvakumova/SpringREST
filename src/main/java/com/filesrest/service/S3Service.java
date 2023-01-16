@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Service
-//@RequiredArgsConstructor
+
 public class S3Service {
 
     private final AmazonS3 s3client;

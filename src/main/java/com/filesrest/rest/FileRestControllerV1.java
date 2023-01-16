@@ -69,7 +69,7 @@ public class FileRestControllerV1 {
     @PostMapping("/create")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
-    protected ResponseEntity<?> create( @RequestParam("file") MultipartFile multipartFile, @RequestBody FileEntity fileEntity, @RequestHeader(value = "user_id") int id) {
+    protected ResponseEntity<?> create( @RequestParam("file") MultipartFile multipartFile, @ModelAttribute FileEntity fileEntity, @RequestHeader(value = "user_id") int id) {
 
         UserEntity user = userService.getById(id);
         if(Objects.isNull(user) ){
