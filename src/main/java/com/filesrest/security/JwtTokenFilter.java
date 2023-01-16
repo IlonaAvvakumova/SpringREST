@@ -1,7 +1,7 @@
-package com.filesrest.service;
+package com.filesrest.security;
 
-import com.filesrest.security.JWTUtil;
 import io.jsonwebtoken.JwtException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenFilter  extends GenericFilterBean {
+
     private final JWTUtil jwtTokenProvider;
-    public JwtTokenFilter(JWTUtil jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtTokenProvider.resolveToken((HttpServletRequest) servletRequest);

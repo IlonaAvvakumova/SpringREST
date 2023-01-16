@@ -27,8 +27,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AuthRestControllerV1 {
     private final AuthenticationManager authenticationManager;
-    private UserRepository userRepository;
-    private JWTUtil jwtTokenProvider;
+    private final UserRepository userRepository;
+    private final JWTUtil jwtTokenProvider;
 
 
     @PostMapping("/login")

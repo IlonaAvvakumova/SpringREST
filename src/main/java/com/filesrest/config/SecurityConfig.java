@@ -1,5 +1,5 @@
 package com.filesrest.config;
-import com.filesrest.service.JwtConfigure;
+import com.filesrest.security.JwtConfigure;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

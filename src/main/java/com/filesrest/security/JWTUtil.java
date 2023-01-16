@@ -1,5 +1,6 @@
 package com.filesrest.security;
 import io.jsonwebtoken.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,20 +15,16 @@ import java.util.Base64;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class JWTUtil {
 
     private final UserDetailsService userDetailsService;
-
-    public JWTUtil(@Qualifier("userDetailsService") UserDetailsService userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
-
-    @Value("${jwt.secret}")
-    private String secretK;
-    @Value("${jwt.expiration}")
-    private long validityInMilliseconds;
-    @Value("${jwt.header}")
-    private String authorizationHeader;
+  //  @Value("${jwt.secret}")
+    private  String secretK =  "05365256193326425606dawdawdhaeaflaekdgakdagdwkdgadk";
+  ///  @Value("${jwt.expiration}")
+    private final long validityInMilliseconds = 604800 ;
+   // @Value("${jwt.header}")
+    private final String authorizationHeader = "Authorization";
 
 
     @PostConstruct
