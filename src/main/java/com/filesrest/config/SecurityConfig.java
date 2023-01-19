@@ -23,7 +23,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
@@ -38,17 +37,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeHttpRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/api/v1/auth/login").permitAll()
+                .antMatchers("/api/v1/auth/register").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .apply(jwtConfigurer);
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-
-
-
 }

@@ -20,6 +20,4 @@ public class FileEntity {
     private String name;
     private String filePath;
 
-
-
 }

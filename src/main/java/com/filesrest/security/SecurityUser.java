@@ -65,11 +65,12 @@ public class SecurityUser implements UserDetails {
     public boolean isEnabled() {
         return isActive;
     }
-    public static UserDetails fromUser(UserEntity user){
+
+    public static UserDetails fromUser(UserEntity user) {
         return new org.springframework.security.core.userdetails.User(
-                user.getName(), user.getPassword(),user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),user.getStatus().equals(Status.ACTIVE),
-                user.getStatus().equals(Status.ACTIVE),user.getRole().getAuthorities()
+                user.getName(), user.getPassword(), user.getStatus().equals(Status.ACTIVE),
+                user.getStatus().equals(Status.ACTIVE), user.getStatus().equals(Status.ACTIVE),
+                user.getStatus().equals(Status.ACTIVE), user.getRole().getAuthorities()
         );
     }
 }

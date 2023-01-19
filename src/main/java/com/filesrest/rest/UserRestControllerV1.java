@@ -22,14 +22,14 @@ public class UserRestControllerV1 {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') ")
-    public ResponseEntity<?> getAll() throws JsonProcessingException {
+    public ResponseEntity<?> getAll()  {
         List<UserEntity> users = userService.getAll();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getById(@PathVariable("id") int id) throws IOException {
+    public ResponseEntity<?> getById(@PathVariable("id") int id)  {
         UserEntity user = userService.getById(id);
         if(Objects.isNull(user)){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -40,7 +40,7 @@ public class UserRestControllerV1 {
     @PostMapping("/create")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    protected ResponseEntity<?> create(@RequestBody UserEntity user) throws IOException {
+    protected ResponseEntity<?> create(@RequestBody UserEntity user)  {
          UserEntity userEntity= userService.create(user);
          return ResponseEntity.ok(userEntity);
     }
@@ -48,7 +48,7 @@ public class UserRestControllerV1 {
     @PutMapping("/update/{id}")
     @ResponseBody
     @PreAuthorize("hasRole('ROLE_ADMIN')  ")
-    protected ResponseEntity<?> update(@RequestBody UserEntity user, @PathVariable("id") int id) throws IOException {
+    protected ResponseEntity<?> update(@RequestBody UserEntity user, @PathVariable("id") int id) {
         user.setId(id);
         UserEntity userEntity =  userService.update(user);
         return ResponseEntity.ok(userEntity);

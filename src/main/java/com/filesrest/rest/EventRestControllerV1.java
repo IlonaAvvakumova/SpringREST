@@ -23,21 +23,18 @@ public class EventRestControllerV1 {
 
     private final EventService eventService;
 
-
-
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     public ResponseEntity<?> getAll() throws JsonProcessingException {
         List<EventEntity> event = eventService.getAll();
-        return  ResponseEntity.ok(event);
+        return ResponseEntity.ok(event);
     }
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
-    public ResponseEntity<?> getById(@PathVariable("id") int id) throws IOException {
+    public ResponseEntity<?> getById(@PathVariable("id") int id)  {
         EventEntity event = eventService.getById(id);
-
-        if(Objects.isNull(event)){
+        if (Objects.isNull(event)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok(event);

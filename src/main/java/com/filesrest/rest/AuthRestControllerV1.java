@@ -1,9 +1,11 @@
 package com.filesrest.rest;
 import com.filesrest.dto.AuthDto;
 import com.filesrest.dto.UserRegistrationDto;
+import com.filesrest.model.Role;
+import com.filesrest.model.Status;
 import com.filesrest.model.UserEntity;
 import com.filesrest.repository.UserRepository;
-import com.filesrest.security.JWTUtil;
+import com.filesrest.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,14 +29,15 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthRestControllerV1 {
+
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
-    private final JWTUtil jwtTokenProvider;
-
+    private final JwtTokenProvider jwtTokenProvider;
+    private  final PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthDto request) {
-        try {
+         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getName(), request.getPassword()));
             UserEntity user = userRepository.findByName(request.getName()).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
             String token = jwtTokenProvider.createToken(request.getName(), user.getRole().name());
@@ -47,14 +51,21 @@ public class AuthRestControllerV1 {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegistrationDto registrationDto) {
-        return null;
+    public ResponseEntity<?> logout(@RequestBody UserRegistrationDto registrationDto) {
+
+        UserEntity newUser = UserEntity.builder().name(registrationDto.getName())
+                .password(passwordEncoder.encode(registrationDto.getPassword()))
+                .role(Role.USER)
+                .status(Status.ACTIVE)
+                .build();
+
+        UserEntity userEntity = userRepository.save(newUser);
+        return ResponseEntity.ok(userEntity);
     }
+
     @PostMapping("/logout")
-    public void register(HttpServletRequest request, HttpServletResponse response) {
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
         SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-        securityContextLogoutHandler.logout(request,response,null);
+        securityContextLogoutHandler.logout(request, response, null);
     }
-
-
 }

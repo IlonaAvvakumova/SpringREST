@@ -3,6 +3,7 @@ import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,15 +17,16 @@ import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
-public class JWTUtil {
+
+public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
-  //  @Value("${jwt.secret}")
-    private  String secretK =  "05365256193326425606dawdawdhaeaflaekdgakdagdwkdgadk";
-  ///  @Value("${jwt.expiration}")
-    private final long validityInMilliseconds = 604800 ;
-   // @Value("${jwt.header}")
-    private final String authorizationHeader = "Authorization";
+    @Value("${jwt.secret}")
+    private  String secretK ;
+    @Value("${jwt.expiration}")
+    private  int validityInMilliseconds ;
+    @Value("${jwt.header}")
+    private  String authorizationHeader ;
 
 
     @PostConstruct

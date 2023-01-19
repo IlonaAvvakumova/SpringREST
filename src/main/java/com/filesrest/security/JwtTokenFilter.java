@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtTokenFilter  extends GenericFilterBean {
 
-    private final JWTUtil jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

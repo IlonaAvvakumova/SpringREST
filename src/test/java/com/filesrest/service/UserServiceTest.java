@@ -7,10 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.test.context.TestPropertySource;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 @SpringBootTest
+@TestPropertySource(properties = {"aws.access-key=A**",
+        "aws.secret-key=**",
+        "baсket-path=https://s3.console.aws.amazon.com/s3/object/avvakumovailona2?region=us-west-2&prefi="
+
+} )
+//@ContextConfiguration(classes = {S3Config.class, FileService.class})
+//@TestPropertySource(locations = "resources/application.properties")
 class UserServiceTest {
 
     @Autowired
@@ -18,7 +25,7 @@ class UserServiceTest {
 
     @MockBean
     UserRepository userRepository;
-    @MockBean
+
     UserEntity user;
 
     @Test
